@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RBI Grade B 2027: 30-Day Backlog Recovery Calendar</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#15803d',
+              600: '#166534',
+              700: '#14532d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .custom-checkbox:checked {
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .print-full { width: 100% !important; margin: 0 !important; padding: 0 !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200 shadow-sm no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold shadow-md shadow-emerald-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-lg font-bold tracking-tight text-slate-900 leading-tight">RBI Grade B 2027</h1>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800">
+                30-Day Recovery
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 font-medium">Sep 14 – Oct 11, 2026 (Weeks 11 – 14)</p>
+          </div>
+        </div>
+
+        <!-- View Controls & Quick Stats -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <!-- View switcher tabs -->
+          <div class="bg-slate-100 p-1 rounded-xl flex items-center gap-1 text-xs font-semibold text-slate-600">
+            <button id="tab-calendar-btn" onclick="switchView('calendar')" class="px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition-all">
+              Calendar Grid
+            </button>
+            <button id="tab-agenda-btn" onclick="switchView('agenda')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+              Day Agenda
+            </button>
+            <button id="tab-tracker-btn" onclick="switchView('tracker')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+              Backlog Matrix
+            </button>
+          </div>
+
+          <!-- Print / Export Action -->
+          <button onclick="window.print()" title="Print Plan" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+            </svg>
+            Print
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Header Statistics Strip -->
+  <section class="bg-white border-b border-slate-200 py-3.5 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- Overall Completed -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+            <span id="stat-total-percent">0%</span>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500 font-medium">Total Completed</p>
+            <p id="stat-total-ratio" class="text-sm font-bold text-slate-800">0 / 140 tasks</p>
+          </div>
+        </div>
+
+        <!-- Live Track Progress -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+            <span id="stat-live-percent">0%</span>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500 font-medium">Live Sessions (Sync)</p>
+            <p id="stat-live-ratio" class="text-sm font-bold text-slate-800">0 / 40 live</p>
+          </div>
+        </div>
+
+        <!-- Backlog Clearance -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+            <span id="stat-backlog-percent">0%</span>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500 font-medium">Backlog Cleared</p>
+            <p id="stat-backlog-ratio" class="text-sm font-bold text-slate-800">0 / 50 mgmt + Q</p>
+          </div>
+        </div>
+
+        <!-- Tests & Mentorship -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
+            <span id="stat-tests-percent">0%</span>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500 font-medium">Weekly Tests & Mentorship</p>
+            <p id="stat-tests-ratio" class="text-sm font-bold text-slate-800">0 / 8 sessions</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Master Progress Bar -->
+      <div class="w-full bg-slate-100 rounded-full h-2 mt-3.5 overflow-hidden">
+        <div id="master-progress-fill" class="bg-gradient-to-r from-emerald-500 to-indigo-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timetable Protocol Pill Banner -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 no-print">
+    <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-3.5 sm:p-4 rounded-2xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2.5">
+        <span class="px-2 py-1 rounded bg-amber-500 text-slate-950 font-bold tracking-wide uppercase text-[10px]">Two-Track Strategy</span>
+        <span class="text-slate-300 font-medium">Never stop live classes to clear backlogs. Run parallel slots everyday:</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-2 font-mono text-[11px]">
+        <span class="px-2.5 py-1 bg-white/10 rounded-md">07:30–09:00 (BL 1)</span>
+        <span class="px-2.5 py-1 bg-indigo-500/30 text-indigo-200 border border-indigo-500/40 rounded-md">09:30–11:00 (LIVE FIN)</span>
+        <span class="px-2.5 py-1 bg-white/10 rounded-md">11:30–01:30 (BL 2 Mgmt)</span>
+        <span class="px-2.5 py-1 bg-emerald-500/30 text-emerald-200 border border-emerald-500/40 rounded-md">06:00–09:00 (LIVE QUANT)</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ================================================================= -->
+    <!-- VIEW 1: CALENDAR VIEW (MONTH / WEEK GRID)                        -->
+    <!-- ================================================================= -->
+    <div id="view-calendar" class="space-y-6">
+      
+      <!-- Week Navigation / Filter Badges -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Quick Filter:</span>
+          <button onclick="filterCalendar('all')" id="filter-all" class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-900 text-white shadow-xs">All Topics</button>
+          <button onclick="filterCalendar('live')" id="filter-live" class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Live Only</button>
+          <button onclick="filterCalendar('backlog')" id="filter-backlog" class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Backlog Only</button>
+          <button onclick="filterCalendar('tests')" id="filter-tests" class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Tests & Sessions</button>
+        </div>
+
+        <div class="text-xs text-slate-500 flex items-center gap-1.5 font-medium">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> Live Quant
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 inline-block ml-2"></span> Live Finance
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block ml-2"></span> Backlog Mgmt
+          <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block ml-2"></span> Test Day
+        </div>
+      </div>
+
+      <!-- Calendar Month Grid Container -->
+      <div id="calendar-grid-container" class="space-y-6">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 2: DAY AGENDA VIEW (CHRONOLOGICAL DETAIL)                   -->
+    <!-- ================================================================= -->
+    <div id="view-agenda" class="hidden space-y-6">
+      <!-- Date Selector Toolbar -->
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <button onclick="changeAgendaDay(-1)" class="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </button>
+          <div>
+            <h2 id="agenda-current-title" class="text-base font-bold text-slate-900">Monday, September 14, 2026</h2>
+            <p id="agenda-current-subtitle" class="text-xs text-slate-500 font-medium">Week 11 • Day 51 of Course Batch</p>
+          </div>
+          <button onclick="changeAgendaDay(1)" class="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <label for="date-quick-select" class="text-xs font-semibold text-slate-500">Jump to Date:</label>
+          <select id="date-quick-select" onchange="jumpToDate(this.value)" class="text-xs border border-slate-200 rounded-lg p-2 font-medium bg-slate-50 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Agenda Day Detailed Card -->
+      <div id="agenda-day-content" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <!-- Content injected dynamically -->
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 3: BACKLOG MATRIX TRACKER (50 DAYS MANAGEMENT + SYLLABUS)   -->
+    <!-- ================================================================= -->
+    <div id="view-tracker" class="hidden space-y-6">
+      
+      <!-- Management Backlog Matrix (Days 1 to 50) -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Management Phase 2 Backlog (Days 1 to 50)</h2>
+            <p class="text-xs text-slate-500">Track all 50 recorded lectures of Management covered at 1.5× speed during Slot 2.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="mgmt-completed-count" class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full font-bold text-xs">0 / 50 Done</span>
+          </div>
+        </div>
+
+        <!-- 50 Days Grid -->
+        <div id="mgmt-matrix-grid" class="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-10 gap-2.5">
+          <!-- Dynamically populated 50 pills -->
+        </div>
+      </div>
+
+      <!-- Quant & English Fast-Track Bridge Checklist -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Quant Bridge -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+          <h3 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+            Phase 1 Quantitative Aptitude Bridge
+          </h3>
+          <p class="text-xs text-slate-500 mb-4">Core foundation modules required to understand live arithmetic.</p>
+          <div id="quant-bridge-list" class="space-y-2 text-sm">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- English Language Bridge -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+          <h3 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+            Phase 1 & 2 English Mastery
+          </h3>
+          <p class="text-xs text-slate-500 mb-4">Objective rules + timed descriptive writing drills.</p>
+          <div id="english-bridge-list" class="space-y-2 text-sm">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Interactive Day Quick-View Modal -->
+  <div id="day-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div>
+          <h3 id="modal-date-title" class="text-base font-bold text-slate-900">Date</h3>
+          <p id="modal-date-subtitle" class="text-xs text-slate-500 font-medium">Batch Schedule</p>
+        </div>
+        <button onclick="closeDayModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-200">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Task List) -->
+      <div id="modal-tasks-container" class="p-6 overflow-y-auto space-y-3 flex-1">
+        <!-- Tasks rendered dynamically -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs">
+        <span class="text-slate-500">Changes are automatically saved to your browser.</span>
+        <button onclick="closeDayModal()" class="px-4 py-2 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Reset Confirmation Modal (No window.confirm) -->
+  <div id="reset-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-xl p-6 text-center">
+      <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+        </svg>
+      </div>
+      <h3 class="text-base font-bold text-slate-900 mb-2">Reset All Recovery Progress?</h3>
+      <p class="text-xs text-slate-500 mb-6">This will clear all your checked boxes and milestone records stored on this device. This action cannot be undone.</p>
+      <div class="flex items-center justify-center gap-3">
+        <button onclick="closeResetModal()" class="px-4 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Cancel</button>
+        <button onclick="confirmResetAll()" class="px-4 py-2 rounded-lg bg-rose-600 text-white text-xs font-semibold hover:bg-rose-700">Yes, Reset Everything</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2 pointer-events-none">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">Task marked complete</span>
+  </div>
+
+  <script>
+    /* Complete 28-day recovery syllabus mapping from Sep 14 to Oct 11, 2026 */
+    const CALENDAR_DATA = [
+      // ========================== WEEK 11 ==========================
+      {
+        id: "2026-09-14",
+        week: 11,
+        dateFormatted: "Sep 14, 2026",
+        dayName: "Monday",
+        dayCourseNumber: 51,
+        summaryLiveMorning: "Finance: Regulatory Bodies",
+        summaryLiveEvening: "Quant: Profit, Loss & Discount",
+        summaryBacklog: "Percentage Fundamentals & Mgmt Days 1-2",
+        isWeekend: false,
+        tasks: [
+          { id: "w11_d1_t1", time: "07:30 – 09:00", category: "backlog-quant", title: "Quant Foundation Backlog", desc: "Percentage Fundamentals (fraction-to-% conversion table, net change multipliers)." },
+          { id: "w11_d1_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 51)", desc: "Regulatory Bodies: RBI mandate, Preamble & core functions." },
+          { id: "w11_d1_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 1 & 2)", desc: "Watch at 1.5x: Introduction to Management & Evolution of Management Thought (Classical/Taylor/Fayol)." },
+          { id: "w11_d1_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily PIB 247 reading + RBI circulars summary." },
+          { id: "w11_d1_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 51)", desc: "Profit, Loss and Discount: Cost price, Marked price, successive discounts." },
+          { id: "w11_d1_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Review P&L formula derivations + Finance Regulatory summary notes." }
+        ]
+      },
+      {
+        id: "2026-09-15",
+        week: 11,
+        dateFormatted: "Sep 15, 2026",
+        dayName: "Tuesday",
+        dayCourseNumber: 52,
+        summaryLiveMorning: "Finance: Regulatory Bodies",
+        summaryLiveEvening: "Quant: Partnership",
+        summaryBacklog: "Ratio & Proportion & Mgmt Days 3-4",
+        isWeekend: false,
+        tasks: [
+          { id: "w11_d2_t1", time: "07:30 – 09:00", category: "backlog-quant", title: "Quant Foundation Backlog", desc: "Ratio & Proportion Basics (cross-multiplication method, dividing quantities into ratios)." },
+          { id: "w11_d2_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 52)", desc: "Regulatory Bodies: SEBI powers, structure, capital market regulations." },
+          { id: "w11_d2_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 3 & 4)", desc: "Evolution of Management Thought (Neo-Classical, Hawthorne Studies, Systems & Contingency)." },
+          { id: "w11_d2_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "RBI 247 monthly summary skim." },
+          { id: "w11_d2_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 52)", desc: "Partnership: Capital × Time investment ratios, active vs sleeping partners." },
+          { id: "w11_d2_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Solve 10 Partnership textbook problems." }
+        ]
+      },
+      {
+        id: "2026-09-16",
+        week: 11,
+        dateFormatted: "Sep 16, 2026",
+        dayName: "Wednesday",
+        dayCourseNumber: 53,
+        summaryLiveMorning: "Finance: Regulatory Bodies",
+        summaryLiveEvening: "Quant: Partnership",
+        summaryBacklog: "Grammar Basics & Mgmt Days 5-6",
+        isWeekend: false,
+        tasks: [
+          { id: "w11_d3_t1", time: "07:30 – 09:00", category: "backlog-english", title: "English Grammar Backlog", desc: "Parts of Speech & Subject-Verb Agreement rules (Grammar Days 1 & 2)." },
+          { id: "w11_d3_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 53)", desc: "Regulatory Bodies: IRDAI, PFRDA, NABARD regulations." },
+          { id: "w11_d3_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 5 & 6)", desc: "Management Functions (Planning, Organising, Directing, Controlling) & Managerial Roles (Mintzberg)." },
+          { id: "w11_d3_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily PIB 247 notes." },
+          { id: "w11_d3_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 53)", desc: "Partnership: Complex sleeping partner equations, profit distribution." },
+          { id: "w11_d3_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Review Regulatory framework notes (RBI Act 1934, BR Act 1949)." }
+        ]
+      },
+      {
+        id: "2026-09-17",
+        week: 11,
+        dateFormatted: "Sep 17, 2026",
+        dayName: "Thursday",
+        dayCourseNumber: 54,
+        summaryLiveMorning: "Finance: Regulatory Bodies",
+        summaryLiveEvening: "Quant: Mixture Alligation",
+        summaryBacklog: "Vocab Root Words & Mgmt Days 7-8",
+        isWeekend: false,
+        tasks: [
+          { id: "w11_d4_t1", time: "07:30 – 09:00", category: "backlog-english", title: "English Vocab Backlog", desc: "Vocabulary root words, contextual antonyms & Fill in the Blanks (25 questions)." },
+          { id: "w11_d4_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 54)", desc: "Regulatory Bodies: International bodies (BIS, BCBS, IMF, World Bank)." },
+          { id: "w11_d4_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 7 & 8)", desc: "Managerial Roles & Organisation Structure (Line, Staff, Functional, Matrix design)." },
+          { id: "w11_d4_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily PIB / Economic updates." },
+          { id: "w11_d4_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 54)", desc: "Mixture & Alligation: Weighted averages, mean price, replacement formulas." },
+          { id: "w11_d4_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Solve 10 Alligation matrix questions." }
+        ]
+      },
+      {
+        id: "2026-09-18",
+        week: 11,
+        dateFormatted: "Sep 18, 2026",
+        dayName: "Friday",
+        dayCourseNumber: 55,
+        summaryLiveMorning: "Finance: Regulatory Bodies",
+        summaryLiveEvening: "Quant: Mixture Alligation",
+        summaryBacklog: "Speed Maths & Mgmt Days 9-10",
+        isWeekend: false,
+        tasks: [
+          { id: "w11_d5_t1", time: "07:30 – 09:00", category: "backlog-quant", title: "Speed Maths Drills", desc: "Vedic multiplication squares, cubes, percentage splitting techniques." },
+          { id: "w11_d5_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 55)", desc: "Regulatory Bodies: Review & synthesis of regulatory interactions." },
+          { id: "w11_d5_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 9 & 10)", desc: "Organisation Structure & Organizational Design parameters." },
+          { id: "w11_d5_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "RBI 247 update." },
+          { id: "w11_d5_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 55)", desc: "Mixture & Alligation: Advanced repeated dilution questions." },
+          { id: "w11_d5_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Revise Week 11 Finance Regulatory Bodies consolidated sheet." }
+        ]
+      },
+      {
+        id: "2026-09-19",
+        week: 11,
+        dateFormatted: "Sep 19, 2026",
+        dayName: "Saturday",
+        dayCourseNumber: null,
+        summaryLiveMorning: "Pre-Test Revision",
+        summaryLiveEvening: "Weekly Test & Analysis",
+        summaryBacklog: "Simplification Drills",
+        isWeekend: true,
+        tasks: [
+          { id: "w11_d6_t1", time: "09:00 – 11:30", category: "consolidation", title: "Pre-Test Quick Revision", desc: "Revise Regulatory Bodies + P&L, Partnership & Alligation." },
+          { id: "w11_d6_t2", time: "12:00 – 03:00", category: "test", title: "WEEKLY TEST (Obj + Desc)", desc: "Official Weekly Test: (1) Finance (2) Quantitative Aptitude." },
+          { id: "w11_d6_t3", time: "04:30 – 06:30", category: "test", title: "Test Audit & Analysis", desc: "Deep error analysis and logging questions missed into notebook." },
+          { id: "w11_d6_t4", time: "07:00 – 09:00", category: "backlog-quant", title: "Backlog Clearing Drill", desc: "Practice 50 Simplification & Approximation questions." }
+        ]
+      },
+      {
+        id: "2026-09-20",
+        week: 11,
+        dateFormatted: "Sep 20, 2026",
+        dayName: "Sunday",
+        dayCourseNumber: null,
+        summaryLiveMorning: "Mgmt W1-W2 Mindmaps",
+        summaryLiveEvening: "Live Mentorship Session",
+        summaryBacklog: "Error Spotting English Drills",
+        isWeekend: true,
+        tasks: [
+          { id: "w11_d7_t1", time: "08:30 – 11:30", category: "backlog-mgmt", title: "Management W1 & W2 Sprint", desc: "Rapid mind map consolidation of Management Days 1 to 10." },
+          { id: "w11_d7_t2", time: "12:30 – 02:30", category: "backlog-english", title: "English Error Spotting", desc: "40 Error Spotting questions based on grammar rules." },
+          { id: "w11_d7_t3", time: "03:30 – 05:30", category: "ca", title: "Weekly CA Compilation", desc: "Consolidate weekly PIB 247 & RBI news." },
+          { id: "w11_d7_t4", time: "07:00 – 08:30", category: "mentorship", title: "LIVE MENTORSHIP & EVALUATION", desc: "Live mentorship with Anuj Jindal Sir + Answer Evaluation (Finance)." }
+        ]
+      },
+
+      // ========================== WEEK 12 ==========================
+      {
+        id: "2026-09-21",
+        week: 12,
+        dateFormatted: "Sep 21, 2026",
+        dayName: "Monday",
+        dayCourseNumber: 56,
+        summaryLiveMorning: "Finance: Regulatory Bodies",
+        summaryLiveEvening: "Quant: Problem on Ages",
+        summaryBacklog: "Sentence Correction & Mgmt Days 11-12",
+        isWeekend: false,
+        tasks: [
+          { id: "w12_d1_t1", time: "07:30 – 09:00", category: "backlog-english", title: "Sentence Correction Drills", desc: "Grammar rules application & 25 sentence correction questions." },
+          { id: "w12_d1_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 56)", desc: "Regulatory Bodies: Deep dive into statutory provisions." },
+          { id: "w12_d1_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 11 & 12)", desc: "Organisation Structure & Introduction to Organizational Behaviour (OB)." },
+          { id: "w12_d1_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily PIB 247 reading." },
+          { id: "w12_d1_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 56)", desc: "Problem on Ages: Ratio method and algebra conversion." },
+          { id: "w12_d1_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Ages equation conversion and speed shortcuts." }
+        ]
+      },
+      {
+        id: "2026-09-22",
+        week: 12,
+        dateFormatted: "Sep 22, 2026",
+        dayName: "Tuesday",
+        dayCourseNumber: 57,
+        summaryLiveMorning: "Finance: Regulatory Bodies",
+        summaryLiveEvening: "Quant: Problem on Ages",
+        summaryBacklog: "Number Series & Mgmt Days 13-14",
+        isWeekend: false,
+        tasks: [
+          { id: "w12_d2_t1", time: "07:30 – 09:00", category: "backlog-quant", title: "Number Series Patterns", desc: "Recognising difference of differences, alternating series, squares/cubes." },
+          { id: "w12_d2_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 57)", desc: "Regulatory Bodies: Inter-regulatory coordination (FSDC)." },
+          { id: "w12_d2_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 13 & 14)", desc: "Personality: Theories of Personality (MBTI, Big Five, Freud, Erikson)." },
+          { id: "w12_d2_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily RBI 247 reading." },
+          { id: "w12_d2_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 57)", desc: "Problem on Ages: Advanced multi-person age relations." },
+          { id: "w12_d2_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Revise Personality theories & note key differences." }
+        ]
+      },
+      {
+        id: "2026-09-23",
+        week: 12,
+        dateFormatted: "Sep 23, 2026",
+        dayName: "Wednesday",
+        dayCourseNumber: 58,
+        summaryLiveMorning: "Finance: Regulatory Bodies",
+        summaryLiveEvening: "Quant: Average",
+        summaryBacklog: "Quadratic Equations & Mgmt Days 15-16",
+        isWeekend: false,
+        tasks: [
+          { id: "w12_d3_t1", time: "07:30 – 09:00", category: "backlog-quant", title: "Quadratic Equations Shortcut", desc: "Sign convention method (+ - roots), fast factorization." },
+          { id: "w12_d3_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 58)", desc: "Regulatory Bodies: Finale & key committees overview." },
+          { id: "w12_d3_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 15 & 16)", desc: "Perception & Introduction to Motivation (Maslow, Herzberg Two-Factor)." },
+          { id: "w12_d3_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily PIB 247 briefing." },
+          { id: "w12_d3_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 58)", desc: "Average: Deviation method, replacement, batsman averages." },
+          { id: "w12_d3_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Solve 15 Average deviation problems." }
+        ]
+      },
+      {
+        id: "2026-09-24",
+        week: 12,
+        dateFormatted: "Sep 24, 2026",
+        dayName: "Thursday",
+        dayCourseNumber: 59,
+        summaryLiveMorning: "Finance: Indian Banking System",
+        summaryLiveEvening: "Quant: Average",
+        summaryBacklog: "Phrase Replacement & Mgmt Days 17-18",
+        isWeekend: false,
+        tasks: [
+          { id: "w12_d4_t1", time: "07:30 – 09:00", category: "backlog-english", title: "Phrase Replacement Drills", desc: "Practice 30 Phrase Replacement questions." },
+          { id: "w12_d4_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 59)", desc: "Indian Banking System: Structure, history & nationalisation." },
+          { id: "w12_d4_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 17 & 18)", desc: "Motivation Theories: McGregor Theory X & Y, McClelland, Vroom, Alderfer." },
+          { id: "w12_d4_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Current affairs notes consolidation." },
+          { id: "w12_d4_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 59)", desc: "Average: Complex weighted average questions." },
+          { id: "w12_d4_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Mind map of Indian Banking System categories." }
+        ]
+      },
+      {
+        id: "2026-09-25",
+        week: 12,
+        dateFormatted: "Sep 25, 2026",
+        dayName: "Friday",
+        dayCourseNumber: 60,
+        summaryLiveMorning: "Finance: Indian Banking System",
+        summaryLiveEvening: "Quant: Time & Work",
+        summaryBacklog: "Speed Equations & Mgmt Days 19-20",
+        isWeekend: false,
+        tasks: [
+          { id: "w12_d5_t1", time: "07:30 – 09:00", category: "backlog-quant", title: "Speed Quadratic & Series", desc: "Solve 30 Quadratic Equations and 30 Missing Number Series." },
+          { id: "w12_d5_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 60)", desc: "Indian Banking System: Commercial banks, SFBs, Payments Banks." },
+          { id: "w12_d5_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 19 & 20)", desc: "Motivation (Adam's Equity) & Introduction to Leadership concepts." },
+          { id: "w12_d5_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "RBI circulars of the week." },
+          { id: "w12_d5_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 60)", desc: "Time and Work: Unitary method, LCM efficiency method." },
+          { id: "w12_d5_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Time and Work efficiency-to-days ratio rules." }
+        ]
+      },
+      {
+        id: "2026-09-26",
+        week: 12,
+        dateFormatted: "Sep 26, 2026",
+        dayName: "Saturday",
+        dayCourseNumber: null,
+        summaryLiveMorning: "Pre-Test Revision",
+        summaryLiveEvening: "Weekly Test & Analysis",
+        summaryBacklog: "Para Jumbles Strategy",
+        isWeekend: true,
+        tasks: [
+          { id: "w12_d6_t1", time: "09:00 – 11:30", category: "consolidation", title: "Pre-Test Quick Revision", desc: "Revise Indian Banking System basics + Ages & Averages." },
+          { id: "w12_d6_t2", time: "12:00 – 03:00", category: "test", title: "WEEKLY TEST (Obj + Desc)", desc: "Official Weekly Test: (1) Finance (2) Quantitative Aptitude." },
+          { id: "w12_d6_t3", time: "04:30 – 06:30", category: "test", title: "Test Audit & Analysis", desc: "Audit errors and log calculation pitfalls." },
+          { id: "w12_d6_t4", time: "07:00 – 09:00", category: "backlog-english", title: "English Para Jumbles Drill", desc: "Para Jumbles strategy and 15 practice sets." }
+        ]
+      },
+      {
+        id: "2026-09-27",
+        week: 12,
+        dateFormatted: "Sep 27, 2026",
+        dayName: "Sunday",
+        dayCourseNumber: null,
+        summaryLiveMorning: "Mgmt W3-W4 Flashcards",
+        summaryLiveEvening: "Live Mentorship Session",
+        summaryBacklog: "Critical Reasoning Drills",
+        isWeekend: true,
+        tasks: [
+          { id: "w12_d7_t1", time: "08:30 – 11:30", category: "backlog-mgmt", title: "Management W3 & W4 Sprint", desc: "Personality, Perception & Motivation flashcards revision." },
+          { id: "w12_d7_t2", time: "12:30 – 02:30", category: "backlog-english", title: "Critical Reasoning Practice", desc: "Critical Reasoning statements & assumptions (20 questions)." },
+          { id: "w12_d7_t3", time: "03:30 – 05:30", category: "ca", title: "Weekly CA Revision", desc: "Weekly PIB & RBI summary revision." },
+          { id: "w12_d7_t4", time: "07:00 – 08:30", category: "mentorship", title: "LIVE MENTORSHIP & EVALUATION", desc: "Live mentorship with Anuj Jindal Sir + Answer Evaluation (Finance)." }
+        ]
+      },
+
+      // ========================== WEEK 13 ==========================
+      {
+        id: "2026-09-28",
+        week: 13,
+        dateFormatted: "Sep 28, 2026",
+        dayName: "Monday",
+        dayCourseNumber: 61,
+        summaryLiveMorning: "Finance: Indian Banking System",
+        summaryLiveEvening: "Quant: Time & Work",
+        summaryBacklog: "RC Inference & Mgmt Days 21-22",
+        isWeekend: false,
+        tasks: [
+          { id: "w13_d1_t1", time: "07:30 – 09:00", category: "backlog-english", title: "Reading Comprehension Strategy", desc: "Tone analysis, theme detection & inference questions." },
+          { id: "w13_d1_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 61)", desc: "Indian Banking System: Priority Sector Lending (PSL) norms." },
+          { id: "w13_d1_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 21 & 22)", desc: "Leadership Theories (Trait, Behavioral, Contingency, Fiedler, Transformational)." },
+          { id: "w13_d1_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily PIB 247 reading." },
+          { id: "w13_d1_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 61)", desc: "Time and Work: Men, women, children equivalence & wages." },
+          { id: "w13_d1_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Consolidate Leadership theories comparative grid." }
+        ]
+      },
+      {
+        id: "2026-09-29",
+        week: 13,
+        dateFormatted: "Sep 29, 2026",
+        dayName: "Tuesday",
+        dayCourseNumber: 62,
+        summaryLiveMorning: "Finance: Indian Banking System",
+        summaryLiveEvening: "Quant: Pipe & Cistern",
+        summaryBacklog: "Arithmetic Speed Drills & Mgmt Days 23-24",
+        isWeekend: false,
+        tasks: [
+          { id: "w13_d2_t1", time: "07:30 – 09:00", category: "backlog-quant", title: "Arithmetic Speed Drills", desc: "20 Speed maths & Percentage calculation sprint." },
+          { id: "w13_d2_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 62)", desc: "Indian Banking System: NPA classification, SARFAESI, IBC 2016." },
+          { id: "w13_d2_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 23 & 24)", desc: "Authority and Power (French & Raven) & Communication Barriers." },
+          { id: "w13_d2_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily RBI 247 reading." },
+          { id: "w13_d2_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 62)", desc: "Pipe and Cistern: Inlet/outlet negative work, alternating taps." },
+          { id: "w13_d2_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Pipe and Cistern negative efficiency problem sets." }
+        ]
+      },
+      {
+        id: "2026-09-30",
+        week: 13,
+        dateFormatted: "Sep 30, 2026",
+        dayName: "Wednesday",
+        dayCourseNumber: 63,
+        summaryLiveMorning: "Finance: Non-Banking System",
+        summaryLiveEvening: "Quant: Pipe & Cistern",
+        summaryBacklog: "Essay Structuring & Mgmt Days 25-26",
+        isWeekend: false,
+        tasks: [
+          { id: "w13_d3_t1", time: "07:30 – 09:00", category: "backlog-english", title: "Descriptive Essay Format", desc: "Essay structuring framework: Introduction hook, arguments, counter, conclusion." },
+          { id: "w13_d3_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 63)", desc: "Non-Banking System: NBFC scale-based regulation (Base, Middle, Upper, Top layers)." },
+          { id: "w13_d3_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 25 & 26)", desc: "Communication Channels, Networks (Wheel, Chain, Circle, All-channel) & Flows." },
+          { id: "w13_d3_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily PIB 247 briefing." },
+          { id: "w13_d3_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 63)", desc: "Pipe and Cistern: Leakage problems and combined capacity." },
+          { id: "w13_d3_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Differentiate NBFCs vs Scheduled Commercial Banks matrix." }
+        ]
+      },
+      {
+        id: "2026-10-01",
+        week: 13,
+        dateFormatted: "Oct 01, 2026",
+        dayName: "Thursday",
+        dayCourseNumber: 64,
+        summaryLiveMorning: "Finance: Indian Financial System",
+        summaryLiveEvening: "Quant: Interest (SI & CI)",
+        summaryBacklog: "Precis Rules & Mgmt Days 27-28",
+        isWeekend: false,
+        tasks: [
+          { id: "w13_d4_t1", time: "07:30 – 09:00", category: "backlog-english", title: "Precis Writing Method", desc: "Methodology & strict rules (1/3rd rule, indirect speech, third person, title)." },
+          { id: "w13_d4_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 64)", desc: "Indian Financial System: Pillars, financial intermediaries & assets." },
+          { id: "w13_d4_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 27 & 28)", desc: "Communication in Groups & Emotional Intelligence (Goleman's 5 domains)." },
+          { id: "w13_d4_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Current affairs compilation." },
+          { id: "w13_d4_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 64)", desc: "Simple & Compound Interest: Fractional interest, effective rate method." },
+          { id: "w13_d4_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "CI - SI difference formulas for 2 and 3 years." }
+        ]
+      },
+      {
+        id: "2026-10-02",
+        week: 13,
+        dateFormatted: "Oct 02, 2026",
+        dayName: "Friday",
+        dayCourseNumber: 65,
+        summaryLiveMorning: "Finance: Indian Financial System",
+        summaryLiveEvening: "Quant: Interest (SI & CI)",
+        summaryBacklog: "Timed Essay Writing & Mgmt Days 29-30",
+        isWeekend: false,
+        tasks: [
+          { id: "w13_d5_t1", time: "07:30 – 09:00", category: "backlog-english", title: "Timed Essay Practice", desc: "Write 1 Timed Descriptive Essay (400 words) on 'Digital Financial Inclusion in India'." },
+          { id: "w13_d5_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 65)", desc: "Indian Financial System: Money market instruments (CP, CD, T-Bills, Call Money)." },
+          { id: "w13_d5_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 29 & 30)", desc: "Interpersonal Relationships (Transactional Analysis - Ego states, Johari Window)." },
+          { id: "w13_d5_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Monthly CA check-in." },
+          { id: "w13_d5_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 65)", desc: "Simple & Compound Interest: Installment problems & compounding periods." },
+          { id: "w13_d5_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Consolidate Johari Window 4 quadrants and TA life positions." }
+        ]
+      },
+      {
+        id: "2026-10-03",
+        week: 13,
+        dateFormatted: "Oct 03, 2026",
+        dayName: "Saturday",
+        dayCourseNumber: null,
+        summaryLiveMorning: "Pre-Test Revision",
+        summaryLiveEvening: "Weekly Test & Analysis",
+        summaryBacklog: "Timed Precis Exercise",
+        isWeekend: true,
+        tasks: [
+          { id: "w13_d6_t1", time: "09:00 – 11:30", category: "consolidation", title: "Pre-Test Quick Revision", desc: "Revise Indian Financial System, NBFCs, Time & Work, and SI-CI." },
+          { id: "w13_d6_t2", time: "12:00 – 03:00", category: "test", title: "WEEKLY TEST (Obj + Desc)", desc: "Official Weekly Test: (1) Finance (2) Quantitative Aptitude." },
+          { id: "w13_d6_t3", time: "04:30 – 06:30", category: "test", title: "Test Audit & Analysis", desc: "Log questions missed in SI/CI and banking regulations." },
+          { id: "w13_d6_t4", time: "07:00 – 09:00", category: "backlog-english", title: "Timed Precis Writing", desc: "Draft 1 Timed Precis based on 450-word editorial passage." }
+        ]
+      },
+      {
+        id: "2026-10-04",
+        week: 13,
+        dateFormatted: "Oct 04, 2026",
+        dayName: "Sunday",
+        dayCourseNumber: null,
+        summaryLiveMorning: "Mgmt W5-W6 Revision",
+        summaryLiveEvening: "Live Mentorship Session",
+        summaryBacklog: "Formal Letter Writing Drills",
+        isWeekend: true,
+        tasks: [
+          { id: "w13_d7_t1", time: "08:30 – 11:30", category: "backlog-mgmt", title: "Management W5 & W6 Sprint", desc: "Comprehensive revision of Leadership, Communication, EI & Johari Window." },
+          { id: "w13_d7_t2", time: "12:30 – 02:30", category: "backlog-english", title: "Official Letter Writing", desc: "Format review (Formal, Banking, Grievance redressal) & draft 1 complaint letter." },
+          { id: "w13_d7_t3", time: "03:30 – 05:30", category: "ca", title: "Weekly CA Compilation", desc: "Weekly PIB 247 & RBI 247 consolidated revision." },
+          { id: "w13_d7_t4", time: "07:00 – 08:30", category: "mentorship", title: "LIVE MENTORSHIP & EVALUATION", desc: "Live mentorship with Anuj Jindal Sir + Answer Evaluation (Finance)." }
+        ]
+      },
+
+      // ========================== WEEK 14 ==========================
+      {
+        id: "2026-10-05",
+        week: 14,
+        dateFormatted: "Oct 05, 2026",
+        dayName: "Monday",
+        dayCourseNumber: 66,
+        summaryLiveMorning: "Finance: Indian Financial System",
+        summaryLiveEvening: "Quant: Speed Time & Distance",
+        summaryBacklog: "Banking Letter & Mgmt Days 31-32",
+        isWeekend: false,
+        tasks: [
+          { id: "w14_d1_t1", time: "07:30 – 09:00", category: "backlog-english", title: "Banking Letter Writing", desc: "Write 1 Formal Letter to Banking Ombudsman regarding unauthorized electronic transaction." },
+          { id: "w14_d1_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 66)", desc: "Indian Financial System: Capital market primary vs secondary instruments." },
+          { id: "w14_d1_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 31 & 32)", desc: "Decision Making (Rational vs Bounded Rationality), MBO, Morale & Incentives." },
+          { id: "w14_d1_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily PIB 247 reading." },
+          { id: "w14_d1_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 66)", desc: "Speed, Time & Distance: Unit conversions, average speed, relative speed." },
+          { id: "w14_d1_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "STD conversion factors & relative speed formula sheet." }
+        ]
+      },
+      {
+        id: "2026-10-06",
+        week: 14,
+        dateFormatted: "Oct 06, 2026",
+        dayName: "Tuesday",
+        dayCourseNumber: 67,
+        summaryLiveMorning: "Finance: Indian Financial System",
+        summaryLiveEvening: "Quant: Speed Time & Distance",
+        summaryBacklog: "Boats/Trains Drills & Mgmt Days 33-35",
+        isWeekend: false,
+        tasks: [
+          { id: "w14_d2_t1", time: "07:30 – 09:00", category: "backlog-quant", title: "Trains & Boats Concepts", desc: "Boats & Streams upstream/downstream and Train crossing length equations." },
+          { id: "w14_d2_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 67)", desc: "Indian Financial System: Settlement systems (RTGS, NEFT, UPI, NACH)." },
+          { id: "w14_d2_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 33, 34 & 35)", desc: "Organisational Conflict, Stress & Learning, Organisational Change models (Lewin)." },
+          { id: "w14_d2_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily RBI 247 reading." },
+          { id: "w14_d2_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 67)", desc: "Speed, Time & Distance: Complex race and circular track problems." },
+          { id: "w14_d2_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Lewin's 3-stage Change model & conflict resolution grid." }
+        ]
+      },
+      {
+        id: "2026-10-07",
+        week: 14,
+        dateFormatted: "Oct 07, 2026",
+        dayName: "Wednesday",
+        dayCourseNumber: 68,
+        summaryLiveMorning: "Finance: Indian Financial System",
+        summaryLiveEvening: "Quant: Mensuration",
+        summaryBacklog: "Financial RC & Mgmt Days 36-40",
+        isWeekend: false,
+        tasks: [
+          { id: "w14_d3_t1", time: "07:30 – 09:00", category: "backlog-english", title: "Financial RC Solving", desc: "Solve 2 Reading Comprehension passages based on monetary policy and banking." },
+          { id: "w14_d3_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 68)", desc: "Indian Financial System: Foreign Exchange Market basics & FEMA 1999." },
+          { id: "w14_d3_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 36 to 40)", desc: "Group Dynamics & Human Resource Development (HRD) concepts." },
+          { id: "w14_d3_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Daily PIB 247 reading." },
+          { id: "w14_d3_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 68)", desc: "Mensuration: 2D plane geometry (circles, polygons, sectors)." },
+          { id: "w14_d3_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Consolidate 2D & 3D Mensuration formula cheat sheet." }
+        ]
+      },
+      {
+        id: "2026-10-08",
+        week: 14,
+        dateFormatted: "Oct 08, 2026",
+        dayName: "Thursday",
+        dayCourseNumber: 69,
+        summaryLiveMorning: "Finance: Financial Markets",
+        summaryLiveEvening: "Quant: Mensuration",
+        summaryBacklog: "Mgmt Days 41-45 (HRD & Training)",
+        isWeekend: false,
+        tasks: [
+          { id: "w14_d4_t1", time: "07:30 – 09:00", category: "backlog-mgmt", title: "Management Backlog (Days 41 & 42)", desc: "Job Analysis, Job Design and Job Evaluation techniques." },
+          { id: "w14_d4_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 69)", desc: "Financial Markets: Money Market Instruments in detail (Call, Repo, Tri-party)." },
+          { id: "w14_d4_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 43, 44 & 45)", desc: "Training & Development, Organisation Development & Performance Appraisal intro." },
+          { id: "w14_d4_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Current affairs review." },
+          { id: "w14_d4_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 69)", desc: "Mensuration: 3D solids (Cylinder, Cone, Sphere, Frustum)." },
+          { id: "w14_d4_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Money Market vs Capital Market comparative taxonomy." }
+        ]
+      },
+      {
+        id: "2026-10-09",
+        week: 14,
+        dateFormatted: "Oct 09, 2026",
+        dayName: "Friday",
+        dayCourseNumber: 70,
+        summaryLiveMorning: "Finance: Financial Markets",
+        summaryLiveEvening: "Quant: Data Interpretation",
+        summaryBacklog: "Mgmt Days 46-50 (Nudge & Ethics)",
+        isWeekend: false,
+        tasks: [
+          { id: "w14_d5_t1", time: "07:30 – 09:00", category: "backlog-mgmt", title: "Management Backlog (Days 46 & 47)", desc: "Performance Appraisal methods (360-degree, BARS) & Nudge Theory (Thaler)." },
+          { id: "w14_d5_t2", time: "09:30 – 11:00", category: "live-finance", title: "LIVE Finance (Day 70)", desc: "Financial Markets: Derivatives (Forwards, Futures, Options, Swaps basics)." },
+          { id: "w14_d5_t3", time: "11:30 – 01:30", category: "backlog-mgmt", title: "Management Backlog (Days 48, 49 & 50)", desc: "Corporate Governance & Ethics (Theories: Deontological, Utilitarian, Virtue)." },
+          { id: "w14_d5_t4", time: "03:30 – 04:30", category: "ca", title: "Current Affairs Slot", desc: "Weekly RBI circulars summary." },
+          { id: "w14_d5_t5", time: "06:00 – 09:00", category: "live-quant", title: "LIVE Quant (Day 70)", desc: "Data Interpretation: Tabular & Bar graphs linked to arithmetic." },
+          { id: "w14_d5_t6", time: "09:30 – 10:30", category: "consolidation", title: "Daily Consolidation", desc: "Revise Ethical theories & Corporate Governance codes (Cadbury, Kumar Mangalam)." }
+        ]
+      },
+      {
+        id: "2026-10-10",
+        week: 14,
+        dateFormatted: "Oct 10, 2026",
+        dayName: "Saturday",
+        dayCourseNumber: null,
+        summaryLiveMorning: "Pre-Test Revision",
+        summaryLiveEvening: "Weekly Test & Analysis",
+        summaryBacklog: "Milestone Management Test",
+        isWeekend: true,
+        tasks: [
+          { id: "w14_d6_t1", time: "09:00 – 11:30", category: "consolidation", title: "Pre-Test Quick Revision", desc: "Full revision of Week 14 topics (Financial Markets, Mensuration, DI)." },
+          { id: "w14_d6_t2", time: "12:00 – 03:00", category: "test", title: "WEEKLY TEST (Obj + Desc)", desc: "Official Weekly Test: (1) Finance (2) Quantitative Aptitude." },
+          { id: "w14_d6_t3", time: "04:30 – 06:30", category: "test", title: "Test Audit & Analysis", desc: "Deep error analysis and logging." },
+          { id: "w14_d6_t4", time: "07:00 – 09:30", category: "test", title: "MILESTONE MANAGEMENT TEST", desc: "Full-length Management Sectional Test (50 Objective Questions + 2 Descriptive Questions)." }
+        ]
+      },
+      {
+        id: "2026-10-11",
+        week: 14,
+        dateFormatted: "Oct 11, 2026",
+        dayName: "Sunday",
+        dayCourseNumber: null,
+        summaryLiveMorning: "30-Day Recovery Wrap-up",
+        summaryLiveEvening: "Live Mentorship Session",
+        summaryBacklog: "35-Q Timed Quant Test",
+        isWeekend: true,
+        tasks: [
+          { id: "w14_d7_t1", time: "08:30 – 11:30", category: "backlog-mgmt", title: "Management Cheatsheet Finalization", desc: "Evaluate Sectional Test & compile 1-page cheatsheet covering all 50 Management days." },
+          { id: "w14_d7_t2", time: "12:30 – 02:30", category: "backlog-quant", title: "Phase 1 Quant Milestone Test", desc: "Timed 35-question sectional test for Quantitative Aptitude." },
+          { id: "w14_d7_t3", time: "03:30 – 05:30", category: "ca", title: "30-Day Cumulative CA Revision", desc: "Review 30 days of daily PIB 247 & RBI 247 notes." },
+          { id: "w14_d7_t4", time: "07:00 – 08:30", category: "mentorship", title: "LIVE MENTORSHIP & EVALUATION", desc: "Live mentorship with Anuj Jindal Sir + Answer Evaluation (Finance)." }
+        ]
+      }
+    ];
+
+    // Management Days Topic Directory
+    const MGMT_SYLLABUS = [
+      { day: 1, title: "Evolution of Management Thought" },
+      { day: 2, title: "Introduction to Management" },
+      { day: 3, title: "Evolution of Management Thought" },
+      { day: 4, title: "Evolution of Management Thought" },
+      { day: 5, title: "Functions & Managerial Roles" },
+      { day: 6, title: "Functions & Managerial Roles" },
+      { day: 7, title: "Functions & Managerial Roles" },
+      { day: 8, title: "Organisation & Structure" },
+      { day: 9, title: "Organisation & Structure" },
+      { day: 10, title: "Organisation & Structure" },
+      { day: 11, title: "Organisation & Structure" },
+      { day: 12, title: "Introduction to OB" },
+      { day: 13, title: "Personality Theories" },
+      { day: 14, title: "Personality Models" },
+      { day: 15, title: "Perception & Attribution" },
+      { day: 16, title: "Motivation Concepts (Maslow, Herzberg)" },
+      { day: 17, title: "Motivation (McGregor, McClelland)" },
+      { day: 18, title: "Motivation (Vroom Expectancy)" },
+      { day: 19, title: "Motivation (Equity Theory)" },
+      { day: 20, title: "Leadership Basics" },
+      { day: 21, title: "Leadership Trait & Behavioral" },
+      { day: 22, title: "Leadership Contingency Models" },
+      { day: 23, title: "Authority, Power & Politics" },
+      { day: 24, title: "Communication Barriers" },
+      { day: 25, title: "Communication Channels & Flows" },
+      { day: 26, title: "Communication Networks" },
+      { day: 27, title: "Communication in Groups" },
+      { day: 28, title: "Emotional Intelligence (Goleman)" },
+      { day: 29, title: "Interpersonal Analysis (TA)" },
+      { day: 30, title: "Johari Window Analysis" },
+      { day: 31, title: "Decision Making Models & MBO" },
+      { day: 32, title: "Morale & Incentive Systems" },
+      { day: 33, title: "Organisational Conflict" },
+      { day: 34, title: "Stress Management & Learning" },
+      { day: 35, title: "Organisational Change & Resistance" },
+      { day: 36, title: "Group Dynamics & Teams" },
+      { day: 37, title: "Group Cohesiveness & Norms" },
+      { day: 38, title: "Organisational Culture" },
+      { day: 39, title: "Introduction to HRD" },
+      { day: 40, title: "HRD Mechanisms & Matrix" },
+      { day: 41, title: "Job Analysis & Design" },
+      { day: 42, title: "Job Evaluation Systems" },
+      { day: 43, title: "Training & Development Needs" },
+      { day: 44, title: "Organisation Development Interventions" },
+      { day: 45, title: "Performance Appraisal Foundations" },
+      { day: 46, title: "Modern Appraisal (BARS, 360-Degree)" },
+      { day: 47, title: "Nudge Theory in Management" },
+      { day: 48, title: "Corporate Governance Principles" },
+      { day: 49, title: "Ethics in Management & Deontology" },
+      { day: 50, title: "Corporate Social Responsibility & Codes" }
+    ];
+
+    const QUANT_BRIDGE_MODULES = [
+      { id: "qb_1", title: "Speed Maths: Vedic Tricks & Splits", week: "Week 8" },
+      { id: "qb_2", title: "Percentage: Conversion Tables & Multipliers", week: "Week 8" },
+      { id: "qb_3", title: "Ratio and Proportion: Cross Method", week: "Week 8-9" },
+      { id: "qb_4", title: "Simplification & Approximation Drills", week: "Week 9" },
+      { id: "qb_5", title: "Number Series: Missing & Wrong Patterns", week: "Week 10" },
+      { id: "qb_6", title: "Quadratic Equations: Root Sign Shortcut", week: "Week 10" }
+    ];
+
+    const ENGLISH_BRIDGE_MODULES = [
+      { id: "eb_1", title: "Grammar Core: Subject-Verb & Tenses", week: "Week 1" },
+      { id: "eb_2", title: "Vocabulary Root Words & In-Context Usage", week: "Week 1" },
+      { id: "eb_3", title: "Sentence Correction & Phrase Replacement", week: "Week 2" },
+      { id: "eb_4", title: "Para Jumbles & Critical Reasoning", week: "Weeks 3-4" },
+      { id: "eb_5", title: "Descriptive Essay Format (400 words)", week: "Week 5" },
+      { id: "eb_6", title: "Precis Writing: The 1/3rd Rule & Tone", week: "Week 6" },
+      { id: "eb_7", title: "Formal Letter Writing (Banking Ombudsman)", week: "Week 7" }
+    ];
+
+    let completedTasks = JSON.parse(localStorage.getItem('rbi_recovery_tasks') || '{}');
+    let currentAgendaDate = "2026-09-14";
+    let activeCalendarFilter = "all";
+
+    function saveState() {
+      localStorage.setItem('rbi_recovery_tasks', JSON.stringify(completedTasks));
+      updateMetrics();
+    }
+
+    function toggleTask(taskId) {
+      if (completedTasks[taskId]) {
+        delete completedTasks[taskId];
+        showToast("Task marked pending", "✕");
+      } else {
+        completedTasks[taskId] = true;
+        showToast("Task completed! Keep the momentum", "✓");
+      }
+      saveState();
+      refreshUI();
+    }
+
+    function toggleMgmtDay(dayNumber) {
+      const id = `mgmt_day_${dayNumber}`;
+      if (completedTasks[id]) {
+        delete completedTasks[id];
+      } else {
+        completedTasks[id] = true;
+      }
+      saveState();
+      renderTrackerView();
+    }
+
+    function toggleBridgeItem(id) {
+      if (completedTasks[id]) {
+        delete completedTasks[id];
+      } else {
+        completedTasks[id] = true;
+      }
+      saveState();
+      renderTrackerView();
+    }
+
+    function updateMetrics() {
+      let totalTasksCount = 0;
+      let completedCount = 0;
+
+      let liveCount = 0;
+      let liveDone = 0;
+
+      let backlogCount = 0;
+      let backlogDone = 0;
+
+      let testsCount = 0;
+      let testsDone = 0;
+
+      CALENDAR_DATA.forEach(day => {
+        day.tasks.forEach(task => {
+          totalTasksCount++;
+          const isDone = !!completedTasks[task.id];
+          if (isDone) completedCount++;
+
+          if (task.category.startsWith('live')) {
+            liveCount++;
+            if (isDone) liveDone++;
+          } else if (task.category.startsWith('backlog')) {
+            backlogCount++;
+            if (isDone) backlogDone++;
+          } else if (task.category === 'test' || task.category === 'mentorship') {
+            testsCount++;
+            if (isDone) testsDone++;
+          }
+        });
+      });
+
+      const totalPct = totalTasksCount ? Math.round((completedCount / totalTasksCount) * 100) : 0;
+      const livePct = liveCount ? Math.round((liveDone / liveCount) * 100) : 0;
+      const backlogPct = backlogCount ? Math.round((backlogDone / backlogCount) * 100) : 0;
+      const testsPct = testsCount ? Math.round((testsDone / testsCount) * 100) : 0;
+
+      document.getElementById('stat-total-percent').innerText = `${totalPct}%`;
+      document.getElementById('stat-total-ratio').innerText = `${completedCount} / ${totalTasksCount} tasks`;
+      document.getElementById('master-progress-fill').style.width = `${totalPct}%`;
+
+      document.getElementById('stat-live-percent').innerText = `${livePct}%`;
+      document.getElementById('stat-live-ratio').innerText = `${liveDone} / ${liveCount} live`;
+
+      document.getElementById('stat-backlog-percent').innerText = `${backlogPct}%`;
+      document.getElementById('stat-backlog-ratio').innerText = `${backlogDone} / ${backlogCount} targets`;
+
+      document.getElementById('stat-tests-percent').innerText = `${testsPct}%`;
+      document.getElementById('stat-tests-ratio').innerText = `${testsDone} / ${testsCount} sessions`;
+    }
+
+    function renderCalendarGrid() {
+      const container = document.getElementById('calendar-grid-container');
+      container.innerHTML = '';
+
+      // Group days by Week
+      const weeks = [11, 12, 13, 14];
+
+      weeks.forEach(w => {
+        const weekDays = CALENDAR_DATA.filter(d => d.week === w);
+        const weekCard = document.createElement('div');
+        weekCard.className = "bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden";
+
+        // Week Header
+        const firstDate = weekDays[0].dateFormatted;
+        const lastDate = weekDays[weekDays.length - 1].dateFormatted;
+        
+        let weekSubtitle = "";
+        if (w === 11) weekSubtitle = "Regulatory Bodies + P&L / Partnership + Mgmt Days 1-10 + Quant Bridge";
+        if (w === 12) weekSubtitle = "Banking System + Ages / Averages + Mgmt Days 11-20 (OB, Personality, Motivation)";
+        if (w === 13) weekSubtitle = "IFS, NBFCs + Time & Work / SI-CI + Mgmt Days 21-30 (Leadership, Communication)";
+        if (w === 14) weekSubtitle = "Financial Markets + STD / DI + Mgmt Days 31-50 (Decisions, Ethics, HRD) + Milestone Test";
+
+        weekCard.innerHTML = `
+          <div class="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <div class="flex items-center gap-2.5">
+              <span class="px-2.5 py-0.5 rounded-md bg-slate-900 text-white font-bold text-xs tracking-wider">WEEK ${w}</span>
+              <span class="text-xs font-semibold text-slate-700">${firstDate} – ${lastDate}</span>
+            </div>
+            <p class="text-xs text-slate-500 font-medium truncate">${weekSubtitle}</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 divide-y sm:divide-y-0 sm:divide-x divide-slate-100" id="week-${w}-days">
+          </div>
+        `;
+
+        container.appendChild(weekCard);
+
+        const daysContainer = document.getElementById(`week-${w}-days`);
+
+        weekDays.forEach(day => {
+          const dayEl = document.createElement('div');
+          const dayTasks = day.tasks;
+          const completedDayTasks = dayTasks.filter(t => completedTasks[t.id]).length;
+          const isAllDone = dayTasks.length > 0 && completedDayTasks === dayTasks.length;
+
+          dayEl.className = `p-3.5 flex flex-col justify-between hover:bg-slate-50 transition-colors cursor-pointer group ${day.isWeekend ? 'bg-slate-50/50' : ''}`;
+          dayEl.onclick = () => openDayModal(day.id);
+
+          dayEl.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider ${day.isWeekend ? 'text-rose-600' : 'text-slate-400'}">${day.dayName.substring(0, 3)}</span>
+                  <p class="text-sm font-bold text-slate-900">${day.dateFormatted.split(',')[0]}</p>
+                </div>
+                ${day.dayCourseNumber ? `<span class="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-slate-100 text-slate-600">D${day.dayCourseNumber}</span>` : ''}
+              </div>
+
+              <!-- Content summary tags -->
+              <div class="space-y-1.5 my-2">
+                ${!day.isWeekend ? `
+                  <div class="p-1.5 rounded-lg bg-indigo-50 border border-indigo-100/80 text-[11px] text-indigo-900 leading-tight">
+                    <span class="font-semibold block text-[10px] text-indigo-600 uppercase">9:30 AM LIVE</span>
+                    ${day.summaryLiveMorning.replace('Finance: ', '')}
+                  </div>
+                  <div class="p-1.5 rounded-lg bg-emerald-50 border border-emerald-100/80 text-[11px] text-emerald-900 leading-tight">
+                    <span class="font-semibold block text-[10px] text-emerald-600 uppercase">6:00 PM LIVE</span>
+                    ${day.summaryLiveEvening.replace('Quant: ', '')}
+                  </div>
+                  <div class="p-1.5 rounded-lg bg-amber-50 border border-amber-100/80 text-[11px] text-amber-900 leading-tight">
+                    <span class="font-semibold block text-[10px] text-amber-700 uppercase">BACKLOG</span>
+                    ${day.summaryBacklog}
+                  </div>
+                ` : `
+                  <div class="p-2 rounded-lg bg-rose-50 border border-rose-100 text-[11px] text-rose-900 leading-tight">
+                    <span class="font-bold block text-[10px] text-rose-600 uppercase">${day.summaryLiveEvening}</span>
+                    ${day.summaryLiveMorning}
+                  </div>
+                  <div class="p-1.5 rounded-lg bg-slate-100 text-[11px] text-slate-700 leading-tight">
+                    <span class="font-semibold block text-[10px] text-slate-500 uppercase">DRILL</span>
+                    ${day.summaryBacklog}
+                  </div>
+                `}
+              </div>
+            </div>
+
+            <!-- Task counter badge -->
+            <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+              <span class="${isAllDone ? 'text-emerald-600 font-bold' : 'text-slate-400'} font-medium">
+                ${completedDayTasks} / ${dayTasks.length} Done
+              </span>
+              ${isAllDone ? `
+                <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]">✓</span>
+              ` : `
+                <span class="text-slate-400 group-hover:text-slate-600 font-bold">→</span>
+              `}
+            </div>
+          `;
+
+          daysContainer.appendChild(dayEl);
+        });
+      });
+    }
+
+    function renderAgendaView() {
+      const day = CALENDAR_DATA.find(d => d.id === currentAgendaDate) || CALENDAR_DATA[0];
+      
+      document.getElementById('agenda-current-title').innerText = `${day.dayName}, ${day.dateFormatted}`;
+      document.getElementById('agenda-current-subtitle').innerText = `Week ${day.week} • ${day.dayCourseNumber ? `Course Batch Day ${day.dayCourseNumber}` : 'Weekend Assessment & Strategy'}`;
+
+      const container = document.getElementById('agenda-day-content');
+      
+      const dayTasks = day.tasks;
+      const completedCount = dayTasks.filter(t => completedTasks[t.id]).length;
+      const progressPercent = dayTasks.length ? Math.round((completedCount / dayTasks.length) * 100) : 0;
+
+      let html = `
+        <div class="p-6 border-b border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded bg-slate-900 text-white font-mono text-xs font-bold">SLOT TIMELINE</span>
+              <span class="text-xs text-slate-500 font-semibold">${completedCount} of ${dayTasks.length} Completed</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mt-1">${day.summaryLiveMorning} & ${day.summaryLiveEvening}</h3>
+          </div>
+          <div class="w-full sm:w-48">
+            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+              <span>Day Progress</span>
+              <span>${progressPercent}%</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-2">
+              <div class="bg-emerald-600 h-2 rounded-full transition-all duration-300" style="width: ${progressPercent}%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 divide-y divide-slate-100 space-y-4">
+      `;
+
+      dayTasks.forEach(task => {
+        const isChecked = !!completedTasks[task.id];
+        let badgeColor = "bg-slate-100 text-slate-700";
+        let timeBorder = "border-slate-300";
+
+        if (task.category === "live-finance") {
+          badgeColor = "bg-indigo-100 text-indigo-800 border-indigo-200";
+          timeBorder = "border-indigo-500";
+        } else if (task.category === "live-quant") {
+          badgeColor = "bg-emerald-100 text-emerald-800 border-emerald-200";
+          timeBorder = "border-emerald-500";
+        } else if (task.category === "backlog-mgmt") {
+          badgeColor = "bg-amber-100 text-amber-800 border-amber-200";
+          timeBorder = "border-amber-500";
+        } else if (task.category === "backlog-quant") {
+          badgeColor = "bg-teal-100 text-teal-800 border-teal-200";
+          timeBorder = "border-teal-500";
+        } else if (task.category === "backlog-english") {
+          badgeColor = "bg-blue-100 text-blue-800 border-blue-200";
+          timeBorder = "border-blue-500";
+        } else if (task.category === "test" || task.category === "mentorship") {
+          badgeColor = "bg-rose-100 text-rose-800 border-rose-200";
+          timeBorder = "border-rose-500";
+        }
+
+        html += `
+          <div class="pt-4 first:pt-0 flex items-start gap-4 group">
+            <input type="checkbox" id="${task.id}" ${isChecked ? 'checked' : ''} onchange="toggleTask('${task.id}')"
+              class="custom-checkbox mt-1 w-5 h-5 rounded-md text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="font-mono text-xs font-semibold px-2 py-0.5 rounded border ${badgeColor}">
+                  ${task.time}
+                </span>
+                <h4 class="text-sm font-bold ${isChecked ? 'line-through text-slate-400' : 'text-slate-900'}">${task.title}</h4>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed ${isChecked ? 'text-slate-400' : ''}">${task.desc}</p>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    function renderTrackerView() {
+      // 1. Management 50-day grid
+      const matrixGrid = document.getElementById('mgmt-matrix-grid');
+      matrixGrid.innerHTML = '';
+
+      let mgmtDoneCount = 0;
+
+      MGMT_SYLLABUS.forEach(item => {
+        const id = `mgmt_day_${item.day}`;
+        const isDone = !!completedTasks[id];
+        if (isDone) mgmtDoneCount++;
+
+        const pill = document.createElement('div');
+        pill.onclick = () => toggleMgmtDay(item.day);
+        pill.className = `p-2.5 rounded-xl border text-left cursor-pointer transition-all ${isDone ? 'bg-amber-500 text-white border-amber-600 shadow-xs' : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-800'}`;
+
+        pill.innerHTML = `
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-mono font-bold text-xs ${isDone ? 'text-amber-100' : 'text-slate-500'}">Day ${item.day}</span>
+            <span class="text-xs">${isDone ? '✓' : '○'}</span>
+          </div>
+          <p class="text-[11px] font-medium leading-tight truncate ${isDone ? 'text-white' : 'text-slate-700'}" title="${item.title}">${item.title}</p>
+        `;
+
+        matrixGrid.appendChild(pill);
+      });
+
+      document.getElementById('mgmt-completed-count').innerText = `${mgmtDoneCount} / 50 Cleared`;
+
+      // 2. Quant Bridge
+      const quantList = document.getElementById('quant-bridge-list');
+      quantList.innerHTML = '';
+      QUANT_BRIDGE_MODULES.forEach(q => {
+        const isDone = !!completedTasks[q.id];
+        const row = document.createElement('div');
+        row.className = "flex items-center justify-between p-3 rounded-xl border border-slate-100 bg-slate-50/70 hover:bg-slate-100/80 cursor-pointer";
+        row.onclick = () => toggleBridgeItem(q.id);
+        row.innerHTML = `
+          <div class="flex items-center gap-3">
+            <input type="checkbox" ${isDone ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-600 cursor-pointer pointer-events-none">
+            <span class="text-xs font-semibold ${isDone ? 'line-through text-slate-400' : 'text-slate-800'}">${q.title}</span>
+          </div>
+          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-white text-slate-500 border border-slate-200">${q.week}</span>
+        `;
+        quantList.appendChild(row);
+      });
+
+      // 3. English Bridge
+      const englishList = document.getElementById('english-bridge-list');
+      englishList.innerHTML = '';
+      ENGLISH_BRIDGE_MODULES.forEach(e => {
+        const isDone = !!completedTasks[e.id];
+        const row = document.createElement('div');
+        row.className = "flex items-center justify-between p-3 rounded-xl border border-slate-100 bg-slate-50/70 hover:bg-slate-100/80 cursor-pointer";
+        row.onclick = () => toggleBridgeItem(e.id);
+        row.innerHTML = `
+          <div class="flex items-center gap-3">
+            <input type="checkbox" ${isDone ? 'checked' : ''} class="w-4 h-4 rounded text-blue-600 cursor-pointer pointer-events-none">
+            <span class="text-xs font-semibold ${isDone ? 'line-through text-slate-400' : 'text-slate-800'}">${e.title}</span>
+          </div>
+          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-white text-slate-500 border border-slate-200">${e.week}</span>
+        `;
+        englishList.appendChild(row);
+      });
+    }
+
+    function switchView(viewName) {
+      document.getElementById('view-calendar').classList.add('hidden');
+      document.getElementById('view-agenda').classList.add('hidden');
+      document.getElementById('view-tracker').classList.add('hidden');
+
+      document.getElementById('tab-calendar-btn').className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+      document.getElementById('tab-agenda-btn').className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+      document.getElementById('tab-tracker-btn').className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+
+      if (viewName === 'calendar') {
+        document.getElementById('view-calendar').classList.remove('hidden');
+        document.getElementById('tab-calendar-btn').className = "px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition-all";
+        renderCalendarGrid();
+      } else if (viewName === 'agenda') {
+        document.getElementById('view-agenda').classList.remove('hidden');
+        document.getElementById('tab-agenda-btn').className = "px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition-all";
+        renderAgendaView();
+      } else if (viewName === 'tracker') {
+        document.getElementById('view-tracker').classList.remove('hidden');
+        document.getElementById('tab-tracker-btn').className = "px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition-all";
+        renderTrackerView();
+      }
+    }
+
+    function openDayModal(dateId) {
+      const day = CALENDAR_DATA.find(d => d.id === dateId);
+      if (!day) return;
+
+      document.getElementById('modal-date-title').innerText = `${day.dayName}, ${day.dateFormatted}`;
+      document.getElementById('modal-date-subtitle').innerText = `Week ${day.week} ${day.dayCourseNumber ? `• Live Class Day ${day.dayCourseNumber}` : ''}`;
+
+      const container = document.getElementById('modal-tasks-container');
+      container.innerHTML = '';
+
+      day.tasks.forEach(task => {
+        const isChecked = !!completedTasks[task.id];
+        const taskRow = document.createElement('div');
+        taskRow.className = "p-3 rounded-xl border border-slate-200 bg-slate-50/60 flex items-start gap-3 hover:bg-slate-100/50 transition-colors";
+        taskRow.innerHTML = `
+          <input type="checkbox" id="modal_${task.id}" ${isChecked ? 'checked' : ''} onchange="toggleTask('${task.id}')"
+            class="custom-checkbox mt-1 w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 cursor-pointer">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-white border border-slate-200 text-slate-600">${task.time}</span>
+              <span class="text-xs font-bold ${isChecked ? 'line-through text-slate-400' : 'text-slate-900'}">${task.title}</span>
+            </div>
+            <p class="text-xs text-slate-600 leading-snug ${isChecked ? 'text-slate-400' : ''}">${task.desc}</p>
+          </div>
+        `;
+        container.appendChild(taskRow);
+      });
+
+      document.getElementById('day-modal').classList.remove('hidden');
+    }
+
+    function closeDayModal() {
+      document.getElementById('day-modal').classList.add('hidden');
+      renderCalendarGrid();
+    }
+
+    function changeAgendaDay(step) {
+      const currentIndex = CALENDAR_DATA.findIndex(d => d.id === currentAgendaDate);
+      let nextIndex = currentIndex + step;
+      if (nextIndex < 0) nextIndex = 0;
+      if (nextIndex >= CALENDAR_DATA.length) nextIndex = CALENDAR_DATA.length - 1;
+      currentAgendaDate = CALENDAR_DATA[nextIndex].id;
+      document.getElementById('date-quick-select').value = currentAgendaDate;
+      renderAgendaView();
+    }
+
+    function jumpToDate(dateId) {
+      currentAgendaDate = dateId;
+      renderAgendaView();
+    }
+
+    function populateDateDropdown() {
+      const select = document.getElementById('date-quick-select');
+      select.innerHTML = '';
+      CALENDAR_DATA.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.id;
+        opt.innerText = `${d.dateFormatted.split(',')[0]} (${d.dayName.substring(0,3)}) - W${d.week}`;
+        select.appendChild(opt);
+      });
+      select.value = currentAgendaDate;
+    }
+
+    function showToast(msg, icon = "✓") {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').innerText = msg;
+      document.getElementById('toast-icon').innerText = icon;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2200);
+    }
+
+    function refreshUI() {
+      updateMetrics();
+      renderCalendarGrid();
+      if (!document.getElementById('view-agenda').classList.contains('hidden')) {
+        renderAgendaView();
+      }
+    }
+
+    // Confirmation Modal Logic (Avoid alert/confirm)
+    function openResetModal() {
+      document.getElementById('reset-modal').classList.remove('hidden');
+    }
+    function closeResetModal() {
+      document.getElementById('reset-modal').classList.add('hidden');
+    }
+    function confirmResetAll() {
+      completedTasks = {};
+      saveState();
+      closeResetModal();
+      refreshUI();
+      renderTrackerView();
+      showToast("All progress reset", "↺");
+    }
+
+    // Initialize application on load
+    window.addEventListener('DOMContentLoaded', () => {
+      populateDateDropdown();
+      updateMetrics();
+      renderCalendarGrid();
+    });
+  </script>
+
+  <!-- Bottom Footer with Safe Controls -->
+  <footer class="mt-auto bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 no-print">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="font-medium text-slate-700">RBI Grade B 2027 Comprehensive Recovery Plan</p>
+        <p class="text-[11px] text-slate-400">Structured for Anuj Jindal RBI Grade B Complete Self-Study Course</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="openResetModal()" class="text-rose-600 hover:text-rose-700 font-semibold px-3 py-1.5 rounded-lg hover:bg-rose-50 transition-colors">
+          Reset Progress
+        </button>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-slate-600 hover:text-slate-900 font-semibold px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">
+          Back to Top ↑
+        </button>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
